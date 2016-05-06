@@ -11,7 +11,20 @@ import org.mockito.MockitoAnnotations;
 
 public class TestSimple {
 
+    @Mock private Executer ex;
+    private Caller caller;
 
+    @Before
+    public void init(){
+        MockitoAnnotations.initMocks(this);
+        caller = new Caller(ex);
+    }
+
+    @Test
+    public void testUsingMock(){
+        when(ex.execute("Hello ", "World")).thenReturn("Hello World");
+        assertEquals(caller.callExecute("Hello ", "World"),"Hello World");
+    }
 
     @Test
     public void simpleTest(){
